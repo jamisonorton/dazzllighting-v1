@@ -6,13 +6,11 @@ const Footer = () => {
   return (
     <footer className="border-t">
       <div className="wrapper flex-between">
-        <div className="p-5 flex-left">
-          <span className="p-5 justify-items-start">
-            @{currentYear} {APP_NAME}. All Rights Reserved
-          </span>
-          <span className="p-5 justify-items-end">
-            Privacy Policy | Terms of Service | ADA Standards
-          </span>
+        <div className="p-5 flex-start">
+          @{currentYear} {APP_NAME}. All Rights Reserved
+        </div>
+        <div className="p-5 space-x-2">
+          Privacy Policy | Terms of Service | ADA Standards
         </div>
       </div>
     </footer>
