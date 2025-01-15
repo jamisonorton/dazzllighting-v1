@@ -14,6 +14,18 @@ const Menu = () => {
     <div className="flex justify-end gap-3">
       <nav className="hidden md:flex w-full-max-w-xs gap-1">
         <Button asChild variant="ghost">
+          <Link href="/permanent">Lighting</Link>
+        </Button>
+        <Button asChild variant="ghost">
+          <Link href="/bulbs">Bulbs</Link>
+        </Button>
+        <Button asChild variant="ghost">
+          <Link href="/stringlights">String Lights</Link>
+        </Button>
+        <Button asChild variant="ghost">
+          <Link href="/patio">Patio Lights</Link>
+        </Button>
+        <Button asChild variant="ghost">
           <Link href="/cart">
             <ShoppingCart />
             Cart
@@ -33,6 +45,18 @@ const Menu = () => {
           </SheetTrigger>
           <SheetContent className="flex flex-col items-start">
             <SheetTitle>Menu</SheetTitle>
+            <Button asChild variant="ghost">
+              <Link href="/permanent">Lighting</Link>
+            </Button>
+            <Button asChild variant="ghost">
+              <Link href="/bulbs">Bulbs</Link>
+            </Button>
+            <Button asChild variant="ghost">
+              <Link href="/stringlights">String Lights</Link>
+            </Button>
+            <Button asChild variant="ghost">
+              <Link href="/patio">Patio Lights</Link>
+            </Button>
             <Button asChild variant="ghost">
               <Link href="/cart">
                 <ShoppingCart /> Cart
