@@ -2,7 +2,7 @@ services:
   db:
     image: postgres:17.2-alpine
     environment:
-      POSTGRES_PASSWORD: riwTaq-xofgaw-zihpi9
-      POSTGRES_USER: dazzl_owner
+      POSTGRES_PASSWORD: 5qTgCatDu4ke
+      POSTGRES_USER: dazzl-db_owner
     ports:
       - "5432:5432"
