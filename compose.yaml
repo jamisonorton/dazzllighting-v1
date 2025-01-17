@@ -1,8 +1,8 @@
 services:
   db:
-    image: postgres:17.2-alpine3.21
+    image: postgres:17.2-alpine
     environment:
-      POSTGRES_PASSWORD: qudbe5-bortyf-vopbuD
-      POSTGRES_USER: dazzl-owner
+      POSTGRES_PASSWORD: riwTaq-xofgaw-zihpi9
+      POSTGRES_USER: dazzl_owner
     ports:
       - "5432:5432"
