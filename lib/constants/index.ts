@@ -12,3 +12,9 @@ export const signInDefaultValues = {
   email: "dazzlholidaylighting@gmail.com",
   password: "123456",
 };
+export const signUpDefaultValues = {
+  name: "",
+  email: "",
+  password: "",
+  confirmPassword: "",
+};
