@@ -17,10 +17,10 @@ const sampleData = {
   ],
   products: [
     {
-      name: "Polo Sporting Stretch Shirt",
+      name: "Red and Yellow Permanent Lights",
       slug: "polo-sporting-stretch-shirt",
-      category: "Men's Dress Shirts",
-      description: "Classic Polo style with modern comfort",
+      category: "Permanent Lights",
+      description: "A classy light to bring holiday cheer year round",
       images: [
         "/images/sample-products/p1-1.jpg",
         "/images/sample-products/p1-2.jpg",
