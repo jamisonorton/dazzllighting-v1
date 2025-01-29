@@ -107,3 +107,10 @@ export const orderItemSchema = z.object({
   price: currency,
   qty: z.number(),
 });
+
+export const paymentResultsSchema = z.object({
+  id: z.string(),
+  status: z.string(),
+  email_address: z.string(),
+  pricePaid: z.string(),
+});
