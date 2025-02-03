@@ -133,6 +133,28 @@ const ShippingAddressForm = ({ address }: { address: ShippingAddress }) => {
             <div className="flex flex-col gap-5 md:flex-row">
               <FormField
                 control={form.control}
+                name="state"
+                render={({
+                  field,
+                }: {
+                  field: ControllerRenderProps<
+                    z.infer<typeof shippingAddressSchema>,
+                    "state"
+                  >;
+                }) => (
+                  <FormItem className="w-full">
+                    <FormLabel>State</FormLabel>
+                    <FormControl>
+                      <Input placeholder="Enter State" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            </div>
+            <div className="flex flex-col gap-5 md:flex-row">
+              <FormField
+                control={form.control}
                 name="postalCode"
                 render={({
                   field,

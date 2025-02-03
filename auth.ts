@@ -112,7 +112,7 @@ export const config = {
       }
       return token;
     },
-    authorized({ request, auth }: any) {
+    async authorized({ request, auth }: any) {
       // Array of regex patterns of paths we want to protect
       const protectedPaths = [
         /\/shipping-addess/,

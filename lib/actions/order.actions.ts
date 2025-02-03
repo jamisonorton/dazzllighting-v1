@@ -224,14 +224,6 @@ async function updateOrderToPaid({
 
   // Transaction to update order and account for product stock
   await prisma.$transaction(async (tx) => {
-    // Iterate over products and update stock
-    for (const item of order.orderitems) {
-      await tx.product.update({
-        where: { id: item.productId },
-        data: { stock: { increment: -item.qty } },
-      });
-    }
-
     // Set the order to paid
     await tx.order.update({
       where: { id: orderId },

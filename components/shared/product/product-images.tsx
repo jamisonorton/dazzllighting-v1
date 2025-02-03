@@ -11,7 +11,7 @@ const ProductImages = ({ images }: { images: string[] }) => {
       <Image
         src={images[current]}
         alt="product image"
-        width={1000}
+        width={1500}
         height={1000}
         className="min-h-[300px] object-cover object-center"
       />
