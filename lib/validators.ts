@@ -105,7 +105,6 @@ export const orderItemSchema = z.object({
   image: z.string(),
   name: z.string(),
   price: currency,
-  qty: z.number(),
 });
 
 export const paymentResultSchema = z.object({
