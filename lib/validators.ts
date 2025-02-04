@@ -108,7 +108,7 @@ export const orderItemSchema = z.object({
   qty: z.number(),
 });
 
-export const paymentResultsSchema = z.object({
+export const paymentResultSchema = z.object({
   id: z.string(),
   status: z.string(),
   email_address: z.string(),

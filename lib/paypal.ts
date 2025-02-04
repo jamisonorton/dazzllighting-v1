@@ -23,6 +23,7 @@ export const paypal = {
         ],
       }),
     });
+
     return handleResponse(response);
   },
 
@@ -37,18 +38,13 @@ export const paypal = {
         Authorization: `Bearer ${accessToken}`,
       },
     });
-
     return handleResponse(response);
   },
 };
 
-// Generate PayPal access token
+// Generate paypal access token
 async function generateAccessToken() {
   const { PAYPAL_CLIENT_ID, PAYPAL_APP_SECRET } = process.env;
-  if (!PAYPAL_CLIENT_ID || !PAYPAL_APP_SECRET) {
-    throw new Error("Missing PayPal credentials");
-  }
-
   const auth = Buffer.from(`${PAYPAL_CLIENT_ID}:${PAYPAL_APP_SECRET}`).toString(
     "base64"
   );
@@ -63,12 +59,12 @@ async function generateAccessToken() {
   });
 
   const jsonData = await handleResponse(response);
-  return jsonData.access_token; // Fixed property reference
+  return jsonData.access_token;
 }
 
 async function handleResponse(response: Response) {
   if (response.ok) {
-    return response.json(); // Added return statement
+    return response.json();
   } else {
     const errorMessage = await response.text();
     throw new Error(errorMessage);
