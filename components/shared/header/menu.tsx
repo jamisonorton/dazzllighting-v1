@@ -9,6 +9,8 @@ import {
 import { ChevronLeft, ShoppingCart, UserIcon } from "lucide-react";
 import Link from "next/link";
 import UserButton from "./user-button";
+import { usePathname } from "next/navigation";
+import { cn } from "@/lib/utils";
 
 const links = [
   {
@@ -22,25 +24,26 @@ const links = [
 ];
 
 const Menu = () => {
+  const pathname = usePathname();
   return (
     <div className="flex justify-end gap-3">
       <nav className="hidden md:flex w-full-max-w-xs gap-1">
-        <Button asChild variant="ghost">
-          <Link href="/permanent">Lighting</Link>
-        </Button>
-        <Button asChild variant="ghost">
-          <Link href="/bulbs">Bulbs</Link>
-        </Button>
-        <Button asChild variant="ghost">
-          <Link href="/stringlights">String Lights</Link>
-        </Button>
-        <Button asChild variant="ghost">
-          <Link href="/patio">Patio Lights</Link>
-        </Button>
+        {links.map((item) => (
+          <Button asChild variant="ghost" key={item.href}>
+            <Link
+              href={item.href}
+              className={cn(
+                "text-sm font-medium transition-colors hover:text-primary",
+                pathname.includes(item.href) ? "" : "text-muted-foreground"
+              )}
+            >
+              {item.title}
+            </Link>
+          </Button>
+        ))}
         <Button asChild variant="ghost">
           <Link href="/cart">
-            <ShoppingCart />
-            Cart
+            <ShoppingCart /> Cart
           </Link>
         </Button>
         <UserButton />
