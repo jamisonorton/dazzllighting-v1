@@ -10,6 +10,17 @@ import { ChevronLeft, ShoppingCart, UserIcon } from "lucide-react";
 import Link from "next/link";
 import UserButton from "./user-button";
 
+const links = [
+  {
+    title: "Lighting",
+    href: "/lighting",
+  },
+  {
+    title: "Bulbs",
+    href: "/bulbs",
+  },
+];
+
 const Menu = () => {
   return (
     <div className="flex justify-end gap-3">

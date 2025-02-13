@@ -67,6 +67,7 @@ export const config = {
       if (trigger === "update") {
         session.user.name = user.name;
       }
+
       return session;
     },
     async jwt({ token, user, trigger, session }: any) {
@@ -86,6 +87,7 @@ export const config = {
           });
         }
 
+        // Handle trigger for signin
         if (trigger === "signIn" || "signUp") {
           const cookiesObject = await cookies();
           const sessionCartId = cookiesObject.get("sessionCartId")?.value;
@@ -110,6 +112,12 @@ export const config = {
           }
         }
       }
+
+      // Handle session updates
+      if (session?.user.name && trigger === "update") {
+        token.name = session.user.name;
+      }
+
       return token;
     },
     async authorized({ request, auth }: any) {
