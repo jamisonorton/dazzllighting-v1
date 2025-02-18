@@ -1,6 +1,7 @@
 import { clsx, type ClassValue } from "clsx";
 import { twMerge } from "tailwind-merge";
 import qs from "query-string";
+import { Decimal } from "@prisma/client/runtime/library";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -61,14 +62,12 @@ const CURRENCY_FORMATTER = new Intl.NumberFormat("en-US", {
 });
 
 // Format currency using the formatter above
-export function formatCurrency(amount: number | string | null) {
-  if (typeof amount === "number") {
-    return CURRENCY_FORMATTER.format(amount);
-  } else if (typeof amount === "string") {
-    return CURRENCY_FORMATTER.format(Number(amount));
-  } else {
-    return "NaN";
+export function formatCurrency(amount: number | string | null | Decimal) {
+  if (amount === null) return "NaN";
+  if (typeof amount === "object" && "toNumber" in amount) {
+    return CURRENCY_FORMATTER.format(amount.toNumber()); // Convert Prisma Decimal to Number
   }
+  return CURRENCY_FORMATTER.format(Number(amount));
 }
 
 // Format Number
