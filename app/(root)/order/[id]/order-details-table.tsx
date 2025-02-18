@@ -10,6 +10,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import { Button } from "@/components/ui/button";
 import { formatCurrency, formatDateTime, formatId } from "@/lib/utils";
 import { Order } from "@/types";
 import Link from "next/link";
@@ -22,21 +23,26 @@ import {
 import {
   createPayPalOrder,
   approvePayPalOrder,
+  updateOrderToPaidCOD,
+  deliverOrder,
 } from "@/lib/actions/order.actions";
 import PlaceOrderForm from "../../place-order/place-order-form";
 import { useToast } from "@/hooks/use-toast";
+import { useTransition } from "react";
 
 const OrderDetailsTable = ({
   order,
   paypalClientId,
+  isAdmin,
 }: {
   order: Order;
   paypalClientId: string;
+  isAdmin: boolean;
 }) => {
   const {
     id,
     shippingAddress,
-    orderitems,
+    orderItems,
     itemsPrice,
     shippingPrice,
     taxPrice,
@@ -75,13 +81,61 @@ const OrderDetailsTable = ({
     return res.data;
   };
 
-  const handleApprovePayPalOrder = async (data: { orderID: string }) => {
+  const handleApprovePayPalOrder = async (data: { orderId: string }) => {
     const res = await approvePayPalOrder(order.id, data);
 
     toast({
       variant: res.success ? "default" : "destructive",
       description: res.message,
     });
+  };
+
+  // Button to mark order as paid
+  const MarkAsPaidButton = () => {
+    const [isPending, startTransistion] = useTransition();
+    const { toast } = useToast();
+
+    return (
+      <Button
+        type="button"
+        disabled={isPending}
+        onClick={() =>
+          startTransistion(async () => {
+            const res = await updateOrderToPaidCOD(order.id);
+            toast({
+              variant: res.success ? "default" : "destructive",
+              description: res.message,
+            });
+          })
+        }
+      >
+        {isPending ? "processing..." : "Mark As Paid"}
+      </Button>
+    );
+  };
+
+  // Button to mark order as delievered
+  const MarkAsDeliveredButton = () => {
+    const [isPending, startTransistion] = useTransition();
+    const { toast } = useToast();
+
+    return (
+      <Button
+        type="button"
+        disabled={isPending}
+        onClick={() =>
+          startTransistion(async () => {
+            const res = await deliverOrder(order.id);
+            toast({
+              variant: res.success ? "default" : "destructive",
+              description: res.message,
+            });
+          })
+        }
+      >
+        {isPending ? "processing..." : "Mark As Delivered"}
+      </Button>
+    );
   };
 
   return (
@@ -107,12 +161,12 @@ const OrderDetailsTable = ({
               <h2 className="text-xl pb-4">Shipping Address</h2>
               <p>{shippingAddress.fullName}</p>
               <p className="mb-2">
-                {shippingAddress.streetAddress}, {shippingAddress.city}{" "}
+                {shippingAddress.streetAddress}, {shippingAddress.city}
                 {shippingAddress.postalCode}, {shippingAddress.country}
               </p>
               {isDelivered ? (
                 <Badge variant="secondary">
-                  Delivered At {formatDateTime(paidAt!).dateTime}
+                  Delivered At {formatDateTime(deliveredAt!).dateTime}
                 </Badge>
               ) : (
                 <Badge variant="destructive">Not Delivered</Badge>
@@ -131,7 +185,7 @@ const OrderDetailsTable = ({
                   </TableRow>
                 </TableHeader>
                 <TableBody>
-                  {orderitems.map((item) => (
+                  {orderItems.map((item) => (
                     <TableRow key={item.slug}>
                       <TableCell>
                         <Link
@@ -191,6 +245,12 @@ const OrderDetailsTable = ({
                   </PayPalScriptProvider>
                 </div>
               )}
+
+              {/* Cash On Delivery */}
+              {isAdmin && !isPaid && paymentMethod === "CashOnDelivery" && (
+                <MarkAsPaidButton />
+              )}
+              {isAdmin && isPaid && !isDelivered && <MarkAsDeliveredButton />}
             </CardContent>
           </Card>
         </div>
