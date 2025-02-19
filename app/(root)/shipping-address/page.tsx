@@ -1,6 +1,6 @@
 import { auth } from "@/auth";
 import { getMyCart } from "@/lib/actions/cart.actions";
-import { getUserByID } from "@/lib/actions/user.action";
+import { getUserById } from "@/lib/actions/user.action";
 import { Metadata } from "next";
 import { redirect } from "next/navigation";
 import { ShippingAddress } from "@/types";
@@ -24,7 +24,7 @@ const ShippingAddressPage = async () => {
 
   //throw new Error("No user ID")
 
-  const user = await getUserByID(userId);
+  const user = await getUserById(userId);
 
   return (
     <>
