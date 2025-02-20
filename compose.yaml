@@ -1,6 +1,6 @@
 services:
   db:
-    image: postgres:17.2-alpine
+    image: postgres:17-alpine
     environment:
       POSTGRES_PASSWORD: 5qTgCatDu4ke
       POSTGRES_USER: dazzl-db_owner

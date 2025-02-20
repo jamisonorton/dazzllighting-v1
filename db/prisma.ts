@@ -1,19 +1,19 @@
-import { Pool, neonConfig } from "@neondatabase/serverless";
-import { PrismaNeon } from "@prisma/adapter-neon";
-import { PrismaClient } from "@prisma/client";
-import ws from "ws";
+import { PrismaClient } from "@prisma/client/edge";
+import { Pool } from "pg";
+import { PrismaPg } from "@prisma/adapter-pg";
 
-// Sets up WebSocket connections, which enables Neon to use WebSocket communication.
-neonConfig.webSocketConstructor = ws;
-const connectionString = `${process.env.DATABASE_URL}`;
+// Load environment variables
+const connectionString = process.env.DATABASE_URL;
 
-// Creates a new connection pool using the provided connection string, allowing multiple concurrent connections.
-const pool = new Pool({ connectionString });
+// Create a PostgreSQL connection pool
+const pool = new Pool({
+  connectionString,
+});
 
-// Instantiates the Prisma adapter using the Neon connection pool to handle the connection between Prisma and Neon.
-const adapter = new PrismaNeon(pool);
+// Use Prisma’s PostgreSQL adapter
+const adapter = new PrismaPg(pool);
 
-// Extends the PrismaClient with a custom result transformer to convert the price and rating fields to strings.
+// Instantiate PrismaClient with the adapter
 export const prisma = new PrismaClient({ adapter }).$extends({
   result: {
     product: {

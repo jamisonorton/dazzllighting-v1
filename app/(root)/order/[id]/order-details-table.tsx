@@ -78,6 +78,7 @@ const OrderDetailsTable = ({
       });
     }
 
+    console.log(res);
     return res.data;
   };
 

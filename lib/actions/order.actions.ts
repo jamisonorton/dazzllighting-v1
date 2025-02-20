@@ -6,7 +6,7 @@ import { auth } from "@/auth";
 import { getMyCart } from "./cart.actions";
 import { getUserById } from "./user.action";
 import { insertOrderSchema } from "../validators";
-import { prisma } from "@/db/prisma";
+import { prisma } from "@/db/old_prisma";
 import { CartItem, PaymentResult } from "@/types";
 import { paypal } from "../paypal";
 import { revalidatePath } from "next/cache";
